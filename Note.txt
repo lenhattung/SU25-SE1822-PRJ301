@@ -18,3 +18,9 @@ C. Tools
 4.	DB Server: MS SQL Server 2019, sử dụng, thư viện kết nối DB: sqljdbc4.jar
 5.	Trình duyệt: Các browsers (chỉ sử dụng duy nhất một trình duyệt tại thời điểm thi PE)
 6.	Việc thi PE chỉ được mở các tool trên (1 -> 5) cùng Windows Explorer, WinZip để nén. Tất cả các công cụ khác ngoài các công cụ nêu trên (cho dù mở vô tình hay mở không sử dụng) sẽ coi như là vi phạm qui chế thi và sẽ bị 0 điểm PE
+
+D. Quy định điểm danh
++ Điểm danh vào đầu buổi học (sau 5 phút bắt đầu).
++ Vắng tối đa 4 slots. 
+
+

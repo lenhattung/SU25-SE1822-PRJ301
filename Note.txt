@@ -24,3 +24,40 @@ D. Quy định điểm danh
 + Vắng tối đa 4 slots. 
 
 
+E. Đánh giá
+1. Assignment	on-going	1	30.0%:
++ Project, xây dựng một website hoàn chỉnh.
++ Chủ đề: tự chọn.
++ Theo quy chuẩn chấm điểm, đánh giá chung cho toàn lớp.
++ Làm nhóm 3 người.
++ Github/ tương tác.
++ Đánh giá 2 slot cuối.
+
+2. Progress Test 	on-going	2x1	2x5.0% = 10%
++ Chuyên cần: 50%.
++ Quiz => 50%.
+=> Vắng 1 slot -1.5đ.
+
+3. Workshop 	on-going	2x1	2x5.0% (project mini)
++ Lập trình mini website theo yêu cầu đề.
++ Nộp sản phẩm trên LMS.
++ Trình bày vấn đáp.
+
+4. Practical Exam	on-going	1	30.0%
+
+5. Final Exam	final exam	1	20.0%
+
+6. Cộng điểm:
++ Tham gia thảo luận trên edunext:
+Tối thiểu 15/20 slot (tương ứng 45 câu hỏi).
+=> Cộng mỗi bài workshop 1 điểm.
+
++ Web Applications for Everybody Specialization - Cousera certificate 
+– Địa chỉ: https://www.coursera.org/specializations/web-applications
+- Hoàn thành và lấy được chứng chỉ: +1.5 => Assignment.
+
+F. Zoom
+https://uw-edu-pl.zoom.us/j/92730934743
+
+G. Videos
+- Slot 1: 

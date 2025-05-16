@@ -1,15 +1,26 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Login Page</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Đăng Nhập</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Đăng Nhập</h2>
         <form action="#" method="post">
-            Username: <input type="text" name="txtUsername"/> <br/>
-            Password: <input type="password" name="txtPassword"/> <br/>
-            <input type="Submit" value="Login"/> | <input type="reset" value="Reset"/>
+            <div class="input-group">
+                <label for="username">Tên người dùng</label>
+                <input type="text" id="username" name="txtUsername" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Mật khẩu</label>
+                <input type="password" id="password" name="txtPassword" required>
+            </div>
+            <button type="submit">Đăng Nhập</button>
         </form>
-    </body>
+        <p class="forgot-password"><a href="#">Quên mật khẩu?</a></p>
+    </div>
+</body>
 </html>

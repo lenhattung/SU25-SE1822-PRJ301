@@ -8,6 +8,10 @@
         <servlet-name>AlphabetServlet</servlet-name>
         <servlet-class>controller.AlphabetServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BangCuuChuong</servlet-name>
+        <servlet-class>controller.BangCuuChuong</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>WelcomeServlet</servlet-name>
         <url-pattern>/WelcomeServlet</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>AlphabetServlet</servlet-name>
         <url-pattern>/AlphabetServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BangCuuChuong</servlet-name>
+        <url-pattern>/BangCuuChuong</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

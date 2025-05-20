@@ -29,15 +29,15 @@ public class BangCuuChuongXServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet BangCuuChuong</title>");
-            out.println("</head>");
-            out.println("<body>");
-
+        PrintWriter out = response.getWriter();
+        /* TODO output your page here. You may use following sample code. */
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<title>Servlet BangCuuChuong</title>");
+        out.println("</head>");
+        out.println("<body>");
+        try {
             String strX = request.getParameter("x");
             int i = Integer.parseInt(strX);
 
@@ -45,14 +45,15 @@ public class BangCuuChuongXServlet extends HttpServlet {
             for (int j = 1; j <= 10; j++) {
                 out.println(i + " x " + j + " = " + (i * j) + "<br/>");
             }
-            out.println("<hr>");
-
-            out.println("</body>");
-            out.println("</html>");
+        } catch (Exception e) {
+            out.println("Da xay ra loi nhap lieu !");
         }
+
+        out.println("</body>");
+        out.println("</html>");
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

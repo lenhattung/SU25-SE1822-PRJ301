@@ -12,7 +12,7 @@
         <servlet-name>BangCuuChuong</servlet-name>
         <servlet-class>controller.BangCuuChuong</servlet-class>
     </servlet>
-     <servlet>
+    <servlet>
         <servlet-name>BangCuuChuongXServlet</servlet-name>
         <servlet-class>controller.BangCuuChuongXServlet</servlet-class>
     </servlet>
@@ -28,7 +28,7 @@
         <servlet-name>BangCuuChuong</servlet-name>
         <url-pattern>/BangCuuChuong</url-pattern>
     </servlet-mapping>
-     <servlet-mapping>
+    <servlet-mapping>
         <servlet-name>BangCuuChuongXServlet</servlet-name>
         <url-pattern>/BangCuuChuongXServlet</url-pattern>
     </servlet-mapping>

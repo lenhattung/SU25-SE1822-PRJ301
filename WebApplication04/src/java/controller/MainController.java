@@ -11,6 +11,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.UserDAO;
+import model.UserDTO;
 
 /**
  *
@@ -29,11 +31,12 @@ public class MainController extends HttpServlet {
             if(action.equals("login")){
                 String userID = request.getParameter("strUserID");
                 String password = request.getParameter("strPassword");
-                
-                if(userID.equals("admin")&&password.equals("admin")){
+                UserDAO userDAO = new UserDAO();
+                if(userDAO.login(userID, password)){
                     // Dang nhap thanh cong
                     url = "welcome.jsp";
-                    request.setAttribute("userID", userID);
+                    UserDTO user = userDAO.getUserById(userID);
+                    request.setAttribute("user", user);
                 }else{
                     // Dang nhap that bai
                     url = "login.jsp";

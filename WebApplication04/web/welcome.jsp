@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="model.UserDTO" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,8 +14,8 @@
     </head>
     <body>
         <%
-            String userID = request.getAttribute("userID")+"";
+            UserDTO user = (UserDTO)request.getAttribute("user");
         %>
-        <h1>Welcome <%= userID %> ! </h1>
+        <h1>Welcome <%= user.getFullName() %> ! </h1>
     </body>
 </html>

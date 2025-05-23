@@ -33,9 +33,11 @@ public class MainController extends HttpServlet {
                 if(userID.equals("admin")&&password.equals("admin")){
                     // Dang nhap thanh cong
                     url = "welcome.jsp";
+                    request.setAttribute("userID", userID);
                 }else{
                     // Dang nhap that bai
                     url = "login.jsp";
+                    request.setAttribute("message", "UserID or Password incorrect!");
                 }
             }
         } catch (Exception e) {

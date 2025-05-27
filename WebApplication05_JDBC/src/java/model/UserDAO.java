@@ -4,39 +4,63 @@
  */
 package model;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
+import utils.DbUtils;
 
 /**
  *
  * @author tungi
  */
 public class UserDAO {
-    ArrayList<UserDTO> list;
 
     public UserDAO() {
-        this.list = new ArrayList<>();
-        list.add(new UserDTO("admin", "admin", "Administrator", "AD", true));
-        list.add(new UserDTO("se123", "hcm", "Nguyen Van A", "MB", true));
-        list.add(new UserDTO("se456", "hcm", "Hoa Hau TT", "MB", true));
+
     }
-    
-    public boolean login(String userID, String password){
-        for (UserDTO userDTO : list) {
-            if(userDTO.getUserID().equalsIgnoreCase(userID)
-                    && userDTO.getPassword().equals(password)){
-                return true;
+
+    public boolean login(String userID, String password) {
+        UserDTO user = getUserById(userID);
+        if(user!=null){
+            if(user.getPassword().equals(password)){
+                if(user.isStatus()){
+                    return true;
+                }
             }
         }
         return false;
     }
-    
-    public UserDTO getUserById(String id){
-        for (UserDTO userDTO : list) {
-            if(userDTO.getUserID().equalsIgnoreCase(id)){
-                return userDTO;
+
+    public UserDTO getUserById(String id) {
+        UserDTO user = null;
+        try {
+            // B0 - Tao sql
+            String sql = "SELECT * FROM tblUsers WHERE userID='" + id + "'";
+
+            // B1 - ket noi
+            Connection conn = DbUtils.getConnection();
+
+            // B2 - Tao cong cu de thuc thi cau lenh sql
+            Statement st = conn.createStatement();
+
+            // B3 - Thuc thi cau lenh
+            ResultSet rs = st.executeQuery(sql);
+
+            // B4 - Duyet bang
+            while (rs.next()) {
+                String userID = rs.getString("userID");
+                String fullName = rs.getString("fullName");
+                String password = rs.getString("password");
+                String roleID = rs.getString("roleID");
+                boolean status = rs.getBoolean("status");
+                
+                user = new UserDTO(userID, password, fullName, roleID, status);
             }
+        } catch (Exception e) {
+            System.out.println(e);
         }
-        return null;
+        return user;
     }
-    
+
 }

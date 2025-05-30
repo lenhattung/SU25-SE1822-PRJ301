@@ -14,7 +14,7 @@
     </head>
     <body>
         <%
-            UserDTO user = (UserDTO)request.getAttribute("user");
+            UserDTO user = (UserDTO)session.getAttribute("user");
         %>
         <h1>Welcome <%= user.getFullName() %> ! </h1>
     </body>

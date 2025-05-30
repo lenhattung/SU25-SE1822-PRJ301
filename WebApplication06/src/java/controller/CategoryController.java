@@ -11,41 +11,37 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.UserDAO;
-import model.UserDTO;
 
-@WebServlet(name = "MainController", urlPatterns = {"/MainController", "/mc"})
-public class MainController extends HttpServlet {
+/**
+ *
+ * @author tungi
+ */
+@WebServlet(name = "CategoryController", urlPatterns = {"/CategoryController"})
+public class CategoryController extends HttpServlet {
 
-    private static final String WELCOME = "login.jsp";
-
-    private boolean isUserAction(String action) {
-        return "login".equals(action)
-                || "logout".equals(action)
-                || "register".equals(action)
-                || "updateProfile".equals(action)
-                || "viewProfile".equals(action)
-                || "changePassword".equals(action);
-    }
-
-    private boolean isProductAction(String action) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = WELCOME;
-        try {
-            String action = request.getParameter("action");
-            if (isUserAction(action)) {
-                url = "/UserController";
-            } else if (isProductAction(action)) {
-                url = "/ProductController";
-            }
-        } catch (Exception e) {
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet CategoryController</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet CategoryController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 

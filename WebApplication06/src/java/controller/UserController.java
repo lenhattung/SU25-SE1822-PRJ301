@@ -108,7 +108,15 @@ public class UserController extends HttpServlet {
     }
 
     private String handleLogout(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        HttpSession session = request.getSession();
+        if(session!=null){
+            UserDTO user = (UserDTO) session.getAttribute("user");
+            if(user!=null){
+                // Ham huy bo tat ca noi dung trong session
+                session.invalidate();
+            }
+        }
+        return LOGIN_PAGE;
     }
 
     private String handleRegister(HttpServletRequest request, HttpServletResponse response) {

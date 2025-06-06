@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.ProductDAO;
 import model.ProductDTO;
+import utils.AuthUtils;
 
 /**
  *
@@ -23,7 +24,6 @@ public class ProductController extends HttpServlet {
 
     ProductDAO pdao = new ProductDAO();
 
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -31,7 +31,7 @@ public class ProductController extends HttpServlet {
         try {
             String action = request.getParameter("action");
             if (action.equals("addProduct")) {
-                url =  handleProductAdding(request, response);
+                url = handleProductAdding(request, response);
             }
         } catch (Exception e) {
         } finally {
@@ -79,29 +79,53 @@ public class ProductController extends HttpServlet {
     }// </editor-fold>
 
     private String handleProductAdding(HttpServletRequest request, HttpServletResponse response) {
-        String id = request.getParameter("id");
-        String name = request.getParameter("name");
-        String image = request.getParameter("image");
-        String description = request.getParameter("description");
-        String price = request.getParameter("price");
-        String size = request.getParameter("size");
-        String status = request.getParameter("status");
+        if (AuthUtils.isAdmin(request)) {
+            String checkError = "";
+            String message = "";
+            String id = request.getParameter("id");
+            String name = request.getParameter("name");
+            String image = request.getParameter("image");
+            String description = request.getParameter("description");
+            String price = request.getParameter("price");
+            String size = request.getParameter("size");
+            String status = request.getParameter("status");
 
-        double price_value = 0;
-        try {
-            price_value = Double.parseDouble(price);
-        } catch (Exception e) {
+            double price_value = 0;
+            try {
+                price_value = Double.parseDouble(price);
+            } catch (Exception e) {
+            }
+
+            boolean status_value = true;
+            try {
+                status_value = Boolean.parseBoolean(status);
+            } catch (Exception e) {
+            }
+
+            // Kiem tra loi
+            if (pdao.isProductExists(id)) {
+                checkError = "Product ID is aldready exists.";
+            }
+            if (price_value < 0) {
+                checkError += "<br/> Price must be greater than zero.";
+            }
+
+            if (checkError.isEmpty()) {
+                message = "Add product successfully.";
+            }
+
+            
+
+            ProductDTO product = new ProductDTO(id, name, image, description, price_value, size, status_value);
+            if(!pdao.create(product)){
+                checkError+="<br/>Can not add new product.";
+            }
+            
+            request.setAttribute("product", product);
+            request.setAttribute("checkError", checkError);
+            request.setAttribute("message", message);
+
         }
-
-        boolean status_value = true;
-        try {
-            status_value = Boolean.parseBoolean(status);
-        } catch (Exception e) {
-        }
-
-        ProductDTO product = new ProductDTO(id, name, image, description, price_value, size, status_value);
-        pdao.create(product);
-        
         return "productForm.jsp";
     }
 

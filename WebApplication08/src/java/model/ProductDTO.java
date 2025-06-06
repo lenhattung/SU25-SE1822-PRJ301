@@ -93,6 +93,16 @@ public class ProductDTO {
         this.status = status;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+    
+    
+
     // Utility methods
     public String getStatusText() {
         return status ? "Active" : "Inactive";

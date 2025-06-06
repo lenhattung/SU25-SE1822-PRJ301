@@ -301,11 +301,9 @@
                     </div>
                 </form>
                 
-                <% if(checkError != null) { %>
+                 <% if(checkError != null && !checkError.isEmpty()) { %>
                     <div class="error-message"><%=checkError%></div>
-                <% } %>
-                
-                <% if(message != null) { %>
+                <% } else if(message != null&& !message.isEmpty()) { %>
                     <div class="success-message"><%=message%></div>
                 <% } %>
             </div>

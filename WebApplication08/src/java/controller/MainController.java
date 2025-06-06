@@ -29,7 +29,7 @@ public class MainController extends HttpServlet {
     }
 
     private boolean isProductAction(String action) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return "addProduct".equals(action);
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

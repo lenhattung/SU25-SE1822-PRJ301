@@ -11,6 +11,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.ProductDAO;
+import model.ProductDTO;
 
 /**
  *
@@ -19,29 +21,21 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(name = "ProductController", urlPatterns = {"/ProductController"})
 public class ProductController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    ProductDAO pdao = new ProductDAO();
+
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ProductController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ProductController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String url = "";
+        try {
+            String action = request.getParameter("action");
+            if (action.equals("addProduct")) {
+                url =  handleProductAdding(request, response);
+            }
+        } catch (Exception e) {
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 
@@ -83,5 +77,32 @@ public class ProductController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private String handleProductAdding(HttpServletRequest request, HttpServletResponse response) {
+        String id = request.getParameter("id");
+        String name = request.getParameter("name");
+        String image = request.getParameter("image");
+        String description = request.getParameter("description");
+        String price = request.getParameter("price");
+        String size = request.getParameter("size");
+        String status = request.getParameter("status");
+
+        double price_value = 0;
+        try {
+            price_value = Double.parseDouble(price);
+        } catch (Exception e) {
+        }
+
+        boolean status_value = true;
+        try {
+            status_value = Boolean.parseBoolean(status);
+        } catch (Exception e) {
+        }
+
+        ProductDTO product = new ProductDTO(id, name, image, description, price_value, size, status_value);
+        pdao.create(product);
+        
+        return "productForm.jsp";
+    }
 
 }

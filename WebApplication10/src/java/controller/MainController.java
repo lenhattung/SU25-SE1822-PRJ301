@@ -31,7 +31,9 @@ public class MainController extends HttpServlet {
     private boolean isProductAction(String action) {
         return "addProduct".equals(action)
                 || "searchProduct".equals(action)
-                 || "changeProductStatus".equals(action);
+                || "changeProductStatus".equals(action)
+                || "editProduct".equals(action)
+                || "updateProduct".equals(action);
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

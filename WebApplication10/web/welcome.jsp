@@ -48,6 +48,28 @@
                 border-bottom: 2px solid #eee;
             }
 
+            .header-actions {
+                display: flex;
+                gap: 10px;
+                align-items: center;
+            }
+
+            .add-product-btn {
+                background-color: #28a745;
+                color: white;
+                padding: 8px 16px;
+                text-decoration: none;
+                border-radius: 4px;
+                font-size: 14px;
+                transition: background-color 0.3s;
+                border: none;
+                cursor: pointer;
+            }
+
+            .add-product-btn:hover {
+                background-color: #218838;
+            }
+
             .logout-btn {
                 background-color: #d32f2f;
                 color: white;
@@ -189,6 +211,45 @@
                 color: #007bff;
             }
 
+            /* Action buttons */
+            .action-buttons {
+                display: flex;
+                gap: 5px;
+                flex-wrap: wrap;
+            }
+
+            .edit-btn {
+                background-color: #ffc107;
+                color: #212529;
+                padding: 4px 8px;
+                border: none;
+                border-radius: 3px;
+                cursor: pointer;
+                font-size: 12px;
+                text-decoration: none;
+                display: inline-block;
+                transition: background-color 0.3s;
+            }
+
+            .edit-btn:hover {
+                background-color: #e0a800;
+            }
+
+            .delete-btn {
+                background-color: #dc3545;
+                color: white;
+                padding: 4px 8px;
+                border: none;
+                border-radius: 3px;
+                cursor: pointer;
+                font-size: 12px;
+                transition: background-color 0.3s;
+            }
+
+            .delete-btn:hover {
+                background-color: #c82333;
+            }
+
             /* Responsive Design */
             @media screen and (max-width: 768px) {
                 .container {
@@ -218,6 +279,10 @@
                 th, td {
                     padding: 8px 6px;
                 }
+
+                .action-buttons {
+                    flex-direction: column;
+                }
             }
         </style>
     </head>
@@ -228,9 +293,12 @@
              String keyword = (String) request.getAttribute("keyword");
         %>
         <div class="container">
-            <div class="header">
+            <div class="header-section">
                 <h1>Welcome <%= user.getFullName() %>!</h1>
-                <a href="MainController?action=logout" class="logout-btn">Logout</a>
+                <div class="header-actions">
+
+                    <a href="MainController?action=logout" class="logout-btn">Logout</a>
+                </div>
             </div>
 
             <div class="content">
@@ -243,7 +311,9 @@
                         <input type="submit" value="Search" class="search-btn"/>
                     </form>
                 </div>
-
+                <% if(AuthUtils.isAdmin(request)){ %>
+                <a href="productForm.jsp" class="add-product-btn">Add Product</a>
+                <% } %>
                 <%
                     List<ProductDTO> list = (List<ProductDTO>)request.getAttribute("list");
                     if(list!=null && list.isEmpty()){
@@ -285,14 +355,23 @@
                                 </span>
                             </td>
                             <% if(AuthUtils.isAdmin(request)){ %>
-                            <td data-label="Status">
-                                <input type="submit" value="Edit"/>
-                                <form action="MainController" method="post">
-                                    <input type="hidden" name="action" value="changeProductStatus"/>
-                                    <input type="hidden" name="productId" value="<%=p.getId()%>"/>
-                                    <input type="hidden" name="keyword" value="<%=keyword!=null?keyword:""%>" />
-                                    <input type="submit" value="Delete"/>
-                                </form>
+                            <td data-label="Action">
+                                <div class="action-buttons">
+                                    <!-- <a href="MainController?action=editProduct&productId=<%=p.getId()%>" class="edit-btn">Edit</a>-->
+                                    <form action="MainController" method="post" style="display: inline;">
+                                        <input type="hidden" name="action" value="editProduct"/>
+                                        <input type="hidden" name="productId" value="<%=p.getId()%>"/>
+                                        <input type="hidden" name="keyword" value="<%=keyword!=null?keyword:""%>" />
+                                        <input type="submit" value="Edit" class="edit-btn" />
+                                    </form>
+                                    <form action="MainController" method="post" style="display: inline;">
+                                        <input type="hidden" name="action" value="changeProductStatus"/>
+                                        <input type="hidden" name="productId" value="<%=p.getId()%>"/>
+                                        <input type="hidden" name="keyword" value="<%=keyword!=null?keyword:""%>" />
+                                        <input type="submit" value="Delete" class="delete-btn" 
+                                               onclick="return confirm('Are you sure you want to delete this product?')"/>
+                                    </form>
+                                </div>
                             </td>
                             <% } %>
                         </tr>

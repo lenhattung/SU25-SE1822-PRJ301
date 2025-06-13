@@ -242,72 +242,78 @@
             String checkError = (String)request.getAttribute("checkError");
             String message = (String)request.getAttribute("message");
             ProductDTO product  = (ProductDTO)request.getAttribute("product");
+            Boolean isEdit = (Boolean)request.getAttribute("isEdit")!=null;
+            String keyword = (String)request.getAttribute("keyword");
             %>
-            
+
             <div class="header">
-                <h1>PRODUCT FORM</h1>
+                <a href="welcome.jsp" class="back-link">← Back to Products</a>
+                <h1><%=isEdit ? "EDIT PRODUCT" : "ADD PRODUCT"%></h1>
             </div>
-            
+
             <div class="form-container">
                 <form action="MainController" method="post">
-                    <input type="hidden" name="action" value="addProduct"/>
-                    
+                    <input type="hidden" name="action" value="<%=isEdit ? "updateProduct" : "addProduct"%>"/>
+
                     <div class="form-group"> 
                         <label for="id">ID <span class="required">*</span></label> 
                         <input type="text" id="id" name="id" required="required"
-                               value="<%=product!=null?product.getId():""%>" />
+                               value="<%=product!=null?product.getId():""%>" 
+                               <%=isEdit ? "readonly" : ""%> 
+                               />
                     </div>
-                    
+
                     <div class="form-group"> 
                         <label for="name">Name <span class="required">*</span></label> 
                         <input type="text" id="name" name="name" required="required"
                                value="<%=product!=null?product.getName():""%>"/>
                     </div>
-                    
+
                     <div class="form-group"> 
                         <label for="image">Image URL</label> 
                         <input type="text" id="image" name="image"
                                value="<%=product!=null?product.getImage():""%>"/>
                     </div>
-                    
+
                     <div class="form-group"> 
                         <label for="description">Description</label> 
                         <textarea id="description" name="description" 
                                   placeholder="Enter product description..."><%=product!=null?product.getDescription():""%></textarea>
                     </div>
-                    
+
                     <div class="form-group"> 
                         <label for="price">Price <span class="required">*</span></label> 
                         <input type="number" id="price" name="price" required="required" 
                                min="0" step="0.01" placeholder="0.00"
                                value="<%=product!=null?product.getPrice():""%>"/>
                     </div>
-                    
+
                     <div class="form-group"> 
                         <label for="size">Size</label> 
                         <input type="text" id="size" name="size" placeholder="e.g., S, M, L, XL"
                                value="<%=product!=null?product.getSize():""%>"/>
                     </div>
-                    
+
                     <div class="checkbox-group"> 
                         <input type="checkbox" id="status" name="status" value="true"
                                <%=product!=null&&product.isStatus()?" checked='checked' ":""%> />
                         <label for="status">Active Product</label> 
                     </div>
-                    
+
                     <div class="button-group"> 
-                        <input type="submit" value="Add Product"/>
+                        <input type="hidden" name="keyword" value="<%=keyword!=null?keyword:""%>" />
+                        <input type="submit" value="<%=isEdit ? "Update Product" : "Add Product"%>"/>
                         <input type="reset" value="Reset"/>    
                     </div>
                 </form>
-                
-                 <% if(checkError != null && !checkError.isEmpty()) { %>
-                    <div class="error-message"><%=checkError%></div>
+
+                <% if(checkError != null && !checkError.isEmpty()) { %>
+                <div class="error-message"><%=checkError%></div>
                 <% } else if(message != null&& !message.isEmpty()) { %>
-                    <div class="success-message"><%=message%></div>
+                <div class="success-message"><%=message%></div>
                 <% } %>
             </div>
-            
+
             <%
         }else {
             %>

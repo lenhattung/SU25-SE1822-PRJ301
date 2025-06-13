@@ -33,10 +33,14 @@ public class ProductController extends HttpServlet {
             String action = request.getParameter("action");
             if (action.equals("addProduct")) {
                 url = handleProductAdding(request, response);
-            }else if (action.equals("searchProduct")) {
+            } else if (action.equals("searchProduct")) {
                 url = handleProductSearching(request, response);
-            }else if (action.equals("changeProductStatus")) {
+            } else if (action.equals("changeProductStatus")) {
                 url = handleProductStatusChanging(request, response);
+            } else if (action.equals("editProduct")) {
+                url = handleProductEditing(request, response);
+            } else if (action.equals("updateProduct")) {
+                url = handleProductUpdating(request, response);
             }
         } catch (Exception e) {
         } finally {
@@ -119,13 +123,11 @@ public class ProductController extends HttpServlet {
                 message = "Add product successfully.";
             }
 
-            
-
             ProductDTO product = new ProductDTO(id, name, image, description, price_value, size, status_value);
-            if(!pdao.create(product)){
-                checkError+="<br/>Can not add new product.";
+            if (!pdao.create(product)) {
+                checkError += "<br/>Can not add new product.";
             }
-            
+
             request.setAttribute("product", product);
             request.setAttribute("checkError", checkError);
             request.setAttribute("message", message);
@@ -144,10 +146,78 @@ public class ProductController extends HttpServlet {
 
     private String handleProductStatusChanging(HttpServletRequest request, HttpServletResponse response) {
         String productId = request.getParameter("productId");
-        if(AuthUtils.isAdmin(request)){
+        if (AuthUtils.isAdmin(request)) {
             pdao.updateStatus(productId, false);
         }
         return handleProductSearching(request, response);
+    }
+
+    private String handleProductEditing(HttpServletRequest request, HttpServletResponse response) {
+        String productId = request.getParameter("productId");
+        String keyword = request.getParameter("keyword");
+        if (AuthUtils.isAdmin(request)) {
+            ProductDTO product = pdao.getProductByID(productId);
+            if (product != null) {
+                request.setAttribute("keyword", keyword);
+                request.setAttribute("product", product);
+                request.setAttribute("isEdit", true);
+                return "productForm.jsp";
+            }
+        }
+        return handleProductSearching(request, response);
+    }
+
+    private String handleProductUpdating(HttpServletRequest request, HttpServletResponse response) {
+        if (AuthUtils.isAdmin(request)) {
+            String checkError = "";
+            String message = "";
+            String id = request.getParameter("id");
+            String name = request.getParameter("name");
+            String image = request.getParameter("image");
+            String description = request.getParameter("description");
+            String price = request.getParameter("price");
+            String size = request.getParameter("size");
+            String status = request.getParameter("status");
+
+            double price_value = 0;
+            try {
+                price_value = Double.parseDouble(price);
+            } catch (Exception e) {
+                checkError += "Invalid price format.<br/>";
+            }
+
+            boolean status_value = status != null && status.equals("true");
+
+            // Validation
+            if (name == null || name.trim().isEmpty()) {
+                checkError += "Product name is required.<br/>";
+            }
+
+            if (price_value <= 0) {
+                checkError += "Price must be greater than zero.<br/>";
+            }
+
+            if (checkError.isEmpty()) {
+                ProductDTO product = new ProductDTO(id, name, image, description, price_value, size, status_value);
+                if (pdao.update(product)) {
+                    message = "Product updated successfully.";
+                    // Redirect to welcome page after successful update
+                    return handleProductSearching(request, response);
+                } else {
+                    checkError += "Cannot update product.<br/>";
+                    request.setAttribute("product", product);
+                }
+            } else {
+                // Keep form data for user to correct
+                ProductDTO product = new ProductDTO(id, name, image, description, price_value, size, status_value);
+                request.setAttribute("product", product);
+            }
+
+            request.setAttribute("checkError", checkError);
+            request.setAttribute("message", message);
+            request.setAttribute("isEdit", true);
+        }
+        return "productForm.jsp";
     }
 
 }

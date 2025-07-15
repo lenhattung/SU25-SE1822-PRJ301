@@ -73,7 +73,21 @@ G. Videos
 - Slot 11: https://youtu.be/jj3oQzJl030
 - Slot 12: https://youtu.be/x4nP0nWrfrw
 
+Lưu ý khi thi PE:
+Theo quy định của Syllabus (Cập nhật - SU25)
+JDK 8 update 172
+NetBeans 13
+Apache Tomcat 10.0.27
+MS SQL Server 2019 (hoặc cao hơn)
+Thư viện nếu bị lỗi thì update lại dựa trên thư viện đã được trung cấp sẵn (gắn sẵn trong Given\PE_Prj301, thuộc folder lib => Mở windows explorer để kiểm tra)
+JDBC: sqljdbc4.jar
+JSTL: jakarta.servlet.jsp.jstl-2.0.0.jar
+JSTL: jakarta.servlet.jsp.jstl-api-2.0.0.jar
+Nên kiểm tra cấu hình welcome-file trong Deployment Descriptor (web.xml), mặc nhiên đã được cấu hình để tự động chạy: “login.jsp”
+Đọc kỹ “Regulations_for_Participating_in_the_PE_PRJ301_Examination.pdf”
 
+Mã đề thi thử: PE_PRJ301_THITHU_300475
+Trong quá trình thi thử, nếu gặp vấn đề kỹ thuật cần hỗ trợ, sinh viên đến phòng IT Support: phòng 102 (Cơ sở Campus Công nghệ cao) ; phòng 605 (Cơ sở Nhà Văn Hóa) hoặc nhắn tin vào Group Zalo IT Support: https://zalo.me/g/oyqfxf400
 ----
 Link coursera: 
 https://docs.google.com/spreadsheets/d/1e0-KQ3G3hWtzHgGNOD0Dls-0i2vzMB9TpHaZqJCPEqA/edit?usp=sharing
